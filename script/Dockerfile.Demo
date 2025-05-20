@@ -24,8 +24,12 @@ RUN chmod 777 /.config
 RUN mkdir -p /.config/PDFMathTranslate
 RUN chmod 777 /.config/PDFMathTranslate
 
+<<<<<<< Updated upstream
 
 # write several lines to the file /.config/PDFMathTranslate/config.json
 RUN echo '{ "USE_MODELSCOPE": "0", "PDF2ZH_LANG_FROM": "English", "PDF2ZH_LANG_TO": "Simplified Chinese", "NOTO_FONT_PATH": "/app/SourceHanSerifCN-Regular.ttf", "translators":[]}' > /.config/PDFMathTranslate/config.json
 RUN chmod 777 /.config/PDFMathTranslate/config.json
 CMD ["pdf2zh", "-i", "--config", "/.config/PDFMathTranslate/config.json"]
+=======
+CMD ["drpdf", "-i"]
+>>>>>>> Stashed changes

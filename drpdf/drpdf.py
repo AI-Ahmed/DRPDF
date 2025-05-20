@@ -11,12 +11,12 @@ import sys
 from string import Template
 from typing import List, Optional
 
-from pdf2zh import __version__, log
-from pdf2zh.high_level import translate, download_remote_fonts
-from pdf2zh.doclayout import OnnxModel, ModelInstance
+from . import __version__, log
+from drpdf.high_level import translate, download_remote_fonts
+from drpdf.doclayout import OnnxModel, ModelInstance
 import os
 
-from pdf2zh.config import ConfigManager
+from drpdf.config import ConfigManager
 from babeldoc.translation_config import TranslationConfig as YadtConfig
 from babeldoc.high_level import async_translate as yadt_translate
 from babeldoc.high_level import init as yadt_init
@@ -38,7 +38,7 @@ def create_parser() -> argparse.ArgumentParser:
         "--version",
         "-v",
         action="version",
-        version=f"pdf2zh v{__version__}",
+        version=f"drpdf v{__version__}",
     )
     parser.add_argument(
         "--debug",
@@ -84,6 +84,14 @@ def create_parser() -> argparse.ArgumentParser:
         type=str,
         default="zh",
         help="The code of target language.",
+    )
+    parse_params.add_argument(
+        "--column-type",
+        "-ct",
+        type=str,
+        default="one",
+        choices=['one', 'two'],
+        help="The type of column to translate (for RTL languages, to set the titles' indentations)."
     )
     parse_params.add_argument(
         "--service",
@@ -191,14 +199,6 @@ def create_parser() -> argparse.ArgumentParser:
         help="Ignore cache and force retranslation.",
     )
 
-    parse_params.add_argument(
-        "--mcp", action="store_true", help="Launch pdf2zh MCP server in STDIO mode"
-    )
-
-    parse_params.add_argument(
-        "--sse", action="store_true", help="Launch pdf2zh MCP server in SSE mode"
-    )
-
     return parser
 
 
@@ -272,7 +272,7 @@ def main(args: Optional[List[str]] = None) -> int:
         ModelInstance.value = OnnxModel.load_available()
 
     if parsed_args.interactive:
-        from pdf2zh.gui import setup_gui
+        from drpdf.gui import setup_gui
 
         if parsed_args.serverport:
             setup_gui(
@@ -283,13 +283,13 @@ def main(args: Optional[List[str]] = None) -> int:
         return 0
 
     if parsed_args.flask:
-        from pdf2zh.backend import flask_app
+        from drpdf.backend import flask_app
 
         flask_app.run(port=11008)
         return 0
 
     if parsed_args.celery:
-        from pdf2zh.backend import celery_app
+        from drpdf.backend import celery_app
 
         celery_app.start(argv=sys.argv[2:])
         return 0
@@ -301,20 +301,6 @@ def main(args: Optional[List[str]] = None) -> int:
             parsed_args.prompt = Template(content)
         except Exception:
             raise ValueError("prompt error.")
-
-    if parsed_args.mcp:
-        logging.getLogger("mcp").setLevel(logging.ERROR)
-        from pdf2zh.mcp_server import create_mcp_app, create_starlette_app
-
-        mcp = create_mcp_app()
-        if parsed_args.sse:
-            import uvicorn
-
-            starlette_app = create_starlette_app(mcp._mcp_server)
-            uvicorn.run(starlette_app)
-            return 0
-        mcp.run()
-        return 0
 
     print(parsed_args)
     if parsed_args.babeldoc:
@@ -337,6 +323,11 @@ def yadt_main(parsed_args) -> int:
     lang_in = parsed_args.lang_in
     lang_out = parsed_args.lang_out
     ignore_cache = parsed_args.ignore_cache
+    column_type = parsed_args.column_type
+
+    if column_type not in ['one', 'two']:
+        raise ValueError("column_type must be one or two.")
+
     outputdir = None
     if parsed_args.output:
         outputdir = parsed_args.output
@@ -360,7 +351,7 @@ def yadt_main(parsed_args) -> int:
         except Exception:
             raise ValueError("prompt error.")
 
-    from pdf2zh.translator import (
+    from drpdf.translator import (
         AzureOpenAITranslator,
         GoogleTranslator,
         BingTranslator,
@@ -383,6 +374,7 @@ def yadt_main(parsed_args) -> int:
         DeepseekTranslator,
         OpenAIlikedTranslator,
         QwenMtTranslator,
+        OpenRouterTranslator
     )
 
     for translator in [
@@ -408,6 +400,7 @@ def yadt_main(parsed_args) -> int:
         DeepseekTranslator,
         OpenAIlikedTranslator,
         QwenMtTranslator,
+        OpenRouterTranslator
     ]:
         if service_name == translator.name:
             translator = translator(

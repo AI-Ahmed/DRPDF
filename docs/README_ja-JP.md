@@ -2,18 +2,18 @@
 
 [English](../README.md) | [简体中文](README_zh-CN.md) | [繁體中文](README_zh-TW.md) | 日本語
 
-<img src="./images/banner.png" width="320px"  alt="PDF2ZH"/>  
+<img src="./images/banner.png" width="320px"  alt="DRPDF"/>  
 
-<h2 id="title">PDFMathTranslate</h2>
+<h2 id="title">DRPDF</h2>
 
 <p>
   <!-- PyPI -->
-  <a href="https://pypi.org/project/pdf2zh/">
-    <img src="https://img.shields.io/pypi/v/pdf2zh"/></a>
-  <a href="https://pepy.tech/projects/pdf2zh">
-    <img src="https://static.pepy.tech/badge/pdf2zh"></a>
-  <a href="https://hub.docker.com/repository/docker/byaidu/pdf2zh">
-    <img src="https://img.shields.io/docker/pulls/byaidu/pdf2zh"></a>
+  <a href="https://pypi.org/project/drpdf/">
+    <img src="https://img.shields.io/pypi/v/drpdf"/></a>
+  <a href="https://pepy.tech/projects/drpdf">
+    <img src="https://static.pepy.tech/badge/drpdf"></a>
+  <a href="https://hub.docker.com/repository/docker/byaidu/drpdf">
+    <img src="https://img.shields.io/docker/pulls/byaidu/drpdf"></a>
   <!-- License -->
   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/Byaidu/PDFMathTranslate"/></a>
@@ -61,9 +61,9 @@
 
 <h2 id="demo">公共サービス 🌟</h2>
 
-### 無料サービス (<https://pdf2zh.com/>)
+### 無料サービス (<https://drpdf.com/>)
 
-インストールなしで [公共サービス](https://pdf2zh.com/) をオンラインで試すことができます。  
+インストールなしで [公共サービス](https://drpdf.com/) をオンラインで試すことができます。  
 
 ### デモ
 
@@ -74,15 +74,16 @@
 
 このプロジェクトを使用するための4つの方法を提供しています：[コマンドライン](#cmd)、[ポータブル](#portable)、[GUI](#gui)、および [Docker](#docker)。
 
-pdf2zhの実行には追加モデル（`wybxc/DocLayout-YOLO-DocStructBench-onnx`）が必要です。このモデルはModelScopeでも見つけることができます。起動時にこのモデルのダウンロードに問題がある場合は、以下の環境変数を使用してください：
+drpdfの実行には追加モデル（`wybxc/DocLayout-YOLO-DocStructBench-onnx`）が必要です。このモデルはModelScopeでも見つけることができます。起動時にこのモデルのダウンロードに問題がある場合は、以下の環境変数を使用してください：
 
-```shell
-set HF_ENDPOINT=https://hf-mirror.com
+```bash
+pip install drpdf
 ```
 
-For PowerShell user:
-```shell
-$env:HF_ENDPOINT = https://hf-mirror.com
+Then run:
+
+```bash
+drpdf document.pdf
 ```
 
 <h3 id="cmd">方法1. コマンドライン</h3>
@@ -91,13 +92,13 @@ $env:HF_ENDPOINT = https://hf-mirror.com
   2. パッケージをインストールします：
 
       ```bash
-      pip install pdf2zh
+      pip install drpdf
       ```
 
   3. 翻訳を実行し、[現在の作業ディレクトリ](https://chatgpt.com/share/6745ed36-9acc-800e-8a90-59204bd13444) にファイルを生成します：
 
       ```bash
-      pdf2zh document.pdf
+      drpdf document.pdf
       ```
 
 <h3 id="portable">方法2. ポータブル</h3>
@@ -112,13 +113,13 @@ Python環境を事前にインストールする必要はありません
 2. パッケージをインストールします：
 
       ```bash
-      pip install pdf2zh
+      pip install drpdf
       ```
 
 3. ブラウザで使用を開始します：
 
       ```bash
-      pdf2zh -i
+      drpdf -i
       ```
 
 4. ブラウザが自動的に起動しない場合は、次のURLを開きます：
@@ -136,8 +137,8 @@ Python環境を事前にインストールする必要はありません
 1. プルして実行します：
 
     ```bash
-    docker pull byaidu/pdf2zh
-    docker run -d -p 7860:7860 byaidu/pdf2zh
+    docker pull byaidu/drpdf
+    docker run -d -p 7860:7860 byaidu/drpdf
     ```
 
 2. ブラウザで開きます：
@@ -170,37 +171,37 @@ Python環境を事前にインストールする必要はありません
 
 | オプション    | 機能 | 例 |
 | -------- | ------- |------- |
-| files | ローカルファイル |  `pdf2zh ~/local.pdf` |
-| links | オンラインファイル |  `pdf2zh http://arxiv.org/paper.pdf` |
-| `-i`  | [GUIに入る](#gui) |  `pdf2zh -i` |
-| `-p`  | [部分的なドキュメント翻訳](#partial) |  `pdf2zh example.pdf -p 1` |
-| `-li` | [ソース言語](#languages) |  `pdf2zh example.pdf -li en` |
-| `-lo` | [ターゲット言語](#languages) |  `pdf2zh example.pdf -lo zh` |
-| `-s`  | [翻訳サービス](#services) |  `pdf2zh example.pdf -s deepl` |
-| `-t`  | [マルチスレッド](#threads) | `pdf2zh example.pdf -t 1` |
-| `-o`  | 出力ディレクトリ | `pdf2zh example.pdf -o output` |
-| `-f`, `-c` | [例外](#exceptions) | `pdf2zh example.pdf -f "(MS.*)"` |
-| `--share` | [gradio公開リンクを取得] | `pdf2zh -i --share` |
-| `--authorized` | [[ウェブ認証とカスタム認証ページの追加](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.)] | `pdf2zh -i --authorized users.txt [auth.html]` |
-| `--prompt` | [カスタムビッグモデルのプロンプトを使用する] | `pdf2zh --prompt [prompt.txt]` |
-| `--onnx` | [カスタムDocLayout-YOLO ONNXモデルの使用] | `pdf2zh --onnx [onnx/model/path]` |
-| `--serverport` | [カスタムWebUIポートを使用する] | `pdf2zh --serverport 7860` |
-| `--dir` | [batch translate] | `pdf2zh --dir /path/to/translate/` |
-| `--config` | [configuration file](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cofig) | `pdf2zh --config /path/to/config/config.json` |
-| `--serverport` | [custom gradio server port] | `pdf2zh --serverport 7860` |
+| files | ローカルファイル |  `drpdf ~/local.pdf` |
+| links | オンラインファイル |  `drpdf http://arxiv.org/paper.pdf` |
+| `-i`  | [GUIに入る](#gui) |  `drpdf -i` |
+| `-p`  | [部分的なドキュメント翻訳](#partial) |  `drpdf example.pdf -p 1` |
+| `-li` | [ソース言語](#languages) |  `drpdf example.pdf -li en` |
+| `-lo` | [ターゲット言語](#languages) |  `drpdf example.pdf -lo zh` |
+| `-s`  | [翻訳サービス](#services) |  `drpdf example.pdf -s deepl` |
+| `-t`  | [マルチスレッド](#threads) | `drpdf example.pdf -t 1` |
+| `-o`  | 出力ディレクトリ | `drpdf example.pdf -o output` |
+| `-f`, `-c` | [例外](#exceptions) | `drpdf example.pdf -f "(MS.*)"` |
+| `--share` | [gradio公開リンクを取得] | `drpdf -i --share` |
+| `--authorized` | [[ウェブ認証とカスタム認証ページの追加](https://github.com/AI-Ahmed/DRPDF/blob/main/docs/ADVANCED.)] | `drpdf -i --authorized users.txt [auth.html]` |
+| `--prompt` | [カスタムビッグモデルのプロンプトを使用する] | `drpdf --prompt [prompt.txt]` |
+| `--onnx` | [カスタムDocLayout-YOLO ONNXモデルの使用] | `drpdf --onnx [onnx/model/path]` |
+| `--serverport` | [カスタムWebUIポートを使用する] | `drpdf --serverport 7860` |
+| `--dir` | [batch translate] | `drpdf --dir /path/to/translate/` |
+| `--config` | [configuration file](https://github.com/AI-Ahmed/DRPDF/blob/main/docs/ADVANCED.md#cofig) | `drpdf --config /path/to/config/config.json` |
+| `--serverport` | [custom gradio server port] | `drpdf --serverport 7860` |
 
 <h3 id="partial">全文または部分的なドキュメント翻訳</h3>
 
 - **全文翻訳**
 
 ```bash
-pdf2zh example.pdf
+drpdf example.pdf
 ```
 
 - **部分翻訳**
 
 ```bash
-pdf2zh example.pdf -p 1-3,5
+drpdf example.pdf -p 1-3,5
 ```
 
 <h3 id="language">ソース言語とターゲット言語を指定</h3>
@@ -208,7 +209,7 @@ pdf2zh example.pdf -p 1-3,5
 [Google Languages Codes](https://developers.google.com/admin-sdk/directory/v1/languages)、[DeepL Languages Codes](https://developers.deepl.com/docs/resources/supported-languages) を参照してください
 
 ```bash
-pdf2zh example.pdf -li en -lo ja
+drpdf example.pdf -li en -lo ja
 ```
 
 <h3 id="services">異なるサービスで翻訳</h3>
@@ -243,20 +244,20 @@ For large language models that are compatible with the OpenAI API but not listed
 `-s service` または `-s service:model` を使用してサービスを指定します：
 
 ```bash
-pdf2zh example.pdf -s openai:gpt-4o-mini
+drpdf example.pdf -s openai:gpt-4o-mini
 ```
 
 または環境変数でモデルを指定します：
 
 ```bash
 set OPENAI_MODEL=gpt-4o-mini
-pdf2zh example.pdf -s openai
+drpdf example.pdf -s openai
 ```
 
 For PowerShell user:
 ```shell
 $env:OPENAI_MODEL = gpt-4o-mini
-pdf2zh example.pdf -s openai
+drpdf example.pdf -s openai
 ```
 
 <h3 id="exceptions">例外を指定して翻訳</h3>
@@ -264,13 +265,13 @@ pdf2zh example.pdf -s openai
 正規表現を使用して保持する必要がある数式フォントと文字を指定します：
 
 ```bash
-pdf2zh example.pdf -f "(CM[^RT].*|MS.*|.*Ital)" -c "(\(|\||\)|\+|=|\d|[\u0080-\ufaff])"
+drpdf example.pdf -f "(CM[^RT].*|MS.*|.*Ital)" -c "(\(|\||\)|\+|=|\d|[\u0080-\ufaff])"
 ```
 
 デフォルトで `Latex`、`Mono`、`Code`、`Italic`、`Symbol` および `Math` フォントを保持します：
 
 ```bash
-pdf2zh example.pdf -f "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|RS|LINE|LCIRCLE|TeX-|rsfs|txsy|wasy|stmary|.*Mono|.*Code|.*Ital|.*Sym|.*Math)"
+drpdf example.pdf -f "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|RS|LINE|LCIRCLE|TeX-|rsfs|txsy|wasy|stmary|.*Mono|.*Code|.*Ital|.*Sym|.*Math)"
 ```
 
 <h3 id="threads">スレッド数を指定</h3>
@@ -278,7 +279,7 @@ pdf2zh example.pdf -f "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|RS|LINE|LCIRCLE|TeX-|rsfs|
 `-t` を使用して翻訳に使用するスレッド数を指定します：
 
 ```bash
-pdf2zh example.pdf -t 1
+drpdf example.pdf -t 1
 ```
 
 <h3 id="prompt">カスタム プロンプト</h3>
@@ -286,7 +287,7 @@ pdf2zh example.pdf -t 1
 `--prompt`を使用して、LLMで使用するプロンプトを指定します：
 
 ```bash
-pdf2zh example.pdf -pr prompt.txt
+drpdf example.pdf -pr prompt.txt
 ```
 
 
@@ -319,7 +320,7 @@ pdf2zh example.pdf -pr prompt.txt
 ### Python
 
 ```python
-from pdf2zh import translate, translate_stream
+from drpdf import translate, translate_stream
 
 params = {"lang_in": "en", "lang_out": "zh", "service": "google", "thread": 4}
 file_mono, file_dual = translate(files=["example.pdf"], **params)[0]
@@ -330,9 +331,9 @@ with open("example.pdf", "rb") as f:
 ### HTTP
 
 ```bash
-pip install pdf2zh[backend]
-pdf2zh --flask
-pdf2zh --celery worker
+pip install drpdf[backend]
+drpdf --flask
+drpdf --celery worker
 ```
 
 ```bash

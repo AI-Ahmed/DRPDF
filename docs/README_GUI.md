@@ -1,10 +1,10 @@
 # Interact with GUI
 
-This subfolder provides the GUI mode of `pdf2zh`.
+This subfolder provides the GUI mode of `drpdf`.
 
 ## Usage
 
-1. Run `pdf2zh -i`
+1. Run `drpdf -i`
 
 2. Drop the PDF file into the window and click `Translate`.
 
@@ -12,8 +12,8 @@ This subfolder provides the GUI mode of `pdf2zh`.
 
 You can set the source and target languages using environment variables:
 
-- `PDF2ZH_LANG_FROM`: Sets the source language. Defaults to "English".
-- `PDF2ZH_LANG_TO`: Sets the target language. Defaults to "Simplified Chinese".
+- `drpdf_LANG_FROM`: Sets the source language. Defaults to "English".
+- `drpdf_LANG_TO`: Sets the target language. Defaults to "Simplified Chinese".
 
 ### Supported Languages
 

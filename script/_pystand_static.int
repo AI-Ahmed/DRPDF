@@ -1,12 +1,12 @@
 import sys
-import pdf2zh.pdf2zh
+import drpdf.drpdf
 import os
 import babeldoc.assets.assets
 import pathlib
 
 WAIT_FOR_INPUT = False
 if len(sys.argv) == 1:
-    sys.argv.append("-i")  # 无参数时自动添加 -i 参数
+    sys.argv.append("-i")  # Automatically add `-i` parameter when no parameter is given
     WAIT_FOR_INPUT = True
 
 files = os.listdir(os.path.dirname(__file__))
@@ -16,8 +16,8 @@ for file in files:
         babeldoc.assets.assets.restore_offline_assets_package(pathlib.Path(os.path.dirname(__file__)))
 
 try:
-    code = pdf2zh.pdf2zh.main()
-    print(f"pdf2zh.pdf2zh.main() return code: {code}")
+    code = drpdf.drpdf.main()
+    print(f"drpdf.drpdf.main() return code: {code}")
     if WAIT_FOR_INPUT:
         input("Press Enter to continue...")
     sys.exit(code)

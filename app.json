@@ -1,5 +1,5 @@
 {
-    "name": "PDFMathTranslate",
-    "description": "PDF scientific paper translation and bilingual comparison.",
-    "repository": "https://github.com/Byaidu/PDFMathTranslate"
+    "name": "DRPDF",
+    "description": "A Cloned Repository of PDFMathTranslate made to support RTL languages. DRPDF is a PDF scientific paper translation and bilingual comparison.",
+    "repository": "https://github.com/AI-Ahmed/DRPDF"
 }

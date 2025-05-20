@@ -25,7 +25,7 @@ class ConfigManager:
             return
         self._initialized = True
 
-        self._config_path = Path.home() / ".config" / "PDFMathTranslate" / "config.json"
+        self._config_path = Path.home() / ".config" / "DRPDF" / "config.json"
         self._config_data = {}
 
         # 这里不要再加锁，因为外层可能已经加了锁 (get_instance), RLock也无妨

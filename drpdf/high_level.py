@@ -1,4 +1,4 @@
-"""Functions that can be used for the most common use-cases for pdf2zh.six"""
+"""Functions that can be used for the most common use-cases for drpdf.six"""
 
 import asyncio
 import io
@@ -10,7 +10,7 @@ import logging
 from asyncio import CancelledError
 from pathlib import Path
 from string import Template
-from typing import Any, BinaryIO, List, Optional, Dict
+from typing import Any, BinaryIO, List, Optional, Dict, Literal
 
 import numpy as np
 import requests
@@ -22,11 +22,11 @@ from pdfminer.pdfpage import PDFPage
 from pdfminer.pdfparser import PDFParser
 from pymupdf import Document, Font
 
-from pdf2zh.converter import TranslateConverter
-from pdf2zh.doclayout import OnnxModel
-from pdf2zh.pdfinterp import PDFPageInterpreterEx
+from drpdf.converter import TranslateConverter
+from drpdf.doclayout import OnnxModel
+from drpdf.pdfinterp import PDFPageInterpreterEx
 
-from pdf2zh.config import ConfigManager
+from drpdf.config import ConfigManager
 from babeldoc.assets.assets import get_font_and_metadata
 
 NOTO_NAME = "noto"
@@ -85,6 +85,7 @@ def translate_patch(
     envs: Dict = None,
     prompt: Template = None,
     ignore_cache: bool = False,
+    column_type: Literal["one", "two"] = "one",
     **kwarg: Any,
 ) -> None:
     rsrcmgr = PDFResourceManager()
@@ -103,6 +104,7 @@ def translate_patch(
         envs,
         prompt,
         ignore_cache,
+        column_type
     )
 
     assert device is not None
@@ -401,6 +403,7 @@ def download_remote_fonts(lang: str):
     lang = lang.lower()
     LANG_NAME_MAP = {
         **{la: "GoNotoKurrent-Regular.ttf" for la in noto_list},
+        **{"ar": "GoNotoKurrent-Regular.ttf"},  # Use available Noto font for Arabic
         **{
             la: f"SourceHanSerif{region}-Regular.ttf"
             for region, langs in {

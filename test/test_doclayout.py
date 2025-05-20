@@ -1,7 +1,7 @@
 import unittest
 from unittest.mock import patch, MagicMock
 import numpy as np
-from pdf2zh.doclayout import (
+from drpdf.doclayout import (
     OnnxModel,
     YoloResult,
     YoloBox,

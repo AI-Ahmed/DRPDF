@@ -1,47 +1,28 @@
-<div align="center">
+# DRPDF
 
-English | [简体中文](docs/README_zh-CN.md) | [繁體中文](docs/README_zh-TW.md) | [日本語](docs/README_ja-JP.md) | [한국어](docs/README_ko-KR.md)
+A Cloned Repository of PDFMathTranslate made to support RTL languages. DRPDF is a PDF scientific paper translation and bilingual comparison.
 
-<img src="./docs/images/banner.png" width="320px"  alt="PDF2ZH"/>
+<img src="./docs/images/banner.png" width="320px"  alt="DRPDF"/>
 
-<h2 id="title">PDFMathTranslate</h2>
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org)
+[![License](https://img.shields.io/badge/license-AGPL--3.0-orange)](LICENSE)
+<a href="https://pypi.org/project/drpdf/">
+<img src="https://img.shields.io/pypi/v/drpdf"></a>
+<a href="https://pepy.tech/projects/drpdf">
+<img src="https://static.pepy.tech/badge/drpdf"></a>
+<a href="https://hub.docker.com/repository/docker/byaidu/drpdf">
+<img src="https://img.shields.io/docker/pulls/byaidu/drpdf"></a>
 
-<p>
-  <!-- PyPI -->
-  <a href="https://pypi.org/project/pdf2zh/">
-    <img src="https://img.shields.io/pypi/v/pdf2zh"></a>
-  <a href="https://pepy.tech/projects/pdf2zh">
-    <img src="https://static.pepy.tech/badge/pdf2zh"></a>
-  <a href="https://hub.docker.com/repository/docker/byaidu/pdf2zh">
-    <img src="https://img.shields.io/docker/pulls/byaidu/pdf2zh"></a>
-  <a href="https://gitcode.com/Byaidu/PDFMathTranslate/overview">
-    <img src="https://gitcode.com/Byaidu/PDFMathTranslate/star/badge.svg"></a>
-  <a href="https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker">
-    <img src="https://img.shields.io/badge/%F0%9F%A4%97-Online%20Demo-FF9E0D"></a>
-  <a href="https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate">
-    <img src="https://img.shields.io/badge/ModelScope-Demo-blue"></a>
-  <a href="https://github.com/Byaidu/PDFMathTranslate/pulls">
-    <img src="https://img.shields.io/badge/contributions-welcome-green"></a>
-  <a href="https://t.me/+Z9_SgnxmsmA5NzBl">
-    <img src="https://img.shields.io/badge/Telegram-2CA5E0?style=flat-squeare&logo=telegram&logoColor=white"></a>
-  <!-- License -->
-  <a href="./LICENSE">
-    <img src="https://img.shields.io/github/license/Byaidu/PDFMathTranslate"></a>
-</p>
-
-<a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="Byaidu%2FPDFMathTranslate | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
+<a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="AI-Ahmed%2FDRPDF | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
 </div>
 
 PDF scientific paper translation and bilingual comparison.
 
 - 📊 Preserve formulas, charts, table of contents, and annotations _([preview](#preview))_.
-- 🌐 Support [multiple languages](#language), and diverse [translation services](#services).
+- 🌐 Support [multiple languages](#language) including RTL languages, and diverse [translation services](#services).
 - 🤖 Provides [commandline tool](#usage), [interactive user interface](#gui), and [Docker](#docker)
 
-Feel free to provide feedback in [GitHub Issues](https://github.com/Byaidu/PDFMathTranslate/issues) or [Telegram Group](https://t.me/+Z9_SgnxmsmA5NzBl).
-
-For details on how to contribute, please consult the [Contribution Guide](https://github.com/Byaidu/PDFMathTranslate/wiki/Contribution-Guide---%E8%B4%A1%E7%8C%AE%E6%8C%87%E5%8D%97).
 
 <h2 id="updates">Updates</h2>
 
@@ -70,10 +51,10 @@ For details on how to contribute, please consult the [Contribution Guide](https:
 
 You can try our application out using either of the following demos:
 
-- [Public free service](https://pdf2zh.com/) online without installation _(recommended)_.
+- [Public free service](https://drpdf.com/) online without installation _(recommended)_.
 - [Immersive Translate - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 1000 free pages per month. _(recommended)_
-- [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
-- [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) without installation.
+- [Demo hosted on HuggingFace](https://huggingface.co/spaces/reycn/DRPDF-Docker)
+- [Demo hosted on ModelScope](https://www.modelscope.cn/studios/AI-ModelScope/DRPDF) without installation.
 
 Note that the computing resources of the demo are limited, so please avoid abusing them.
 
@@ -92,13 +73,13 @@ For different use cases, we provide distinct methods to use our program:
 
    ```bash
    pip install uv
-   uv tool install --python 3.12 pdf2zh
+   uv tool install --python 3.12 drpdf
    ```
 
 3. Execute translation, files generated in [current working directory](https://chatgpt.com/share/6745ed36-9acc-800e-8a90-59204bd13444):
 
    ```bash
-   pdf2zh document.pdf
+   drpdf document.pdf
    ```
 
 </details>
@@ -106,9 +87,9 @@ For different use cases, we provide distinct methods to use our program:
 <details>
   <summary>2. Windows exe</summary>
 
-1. Download pdf2zh-version-win64.zip from [release page](https://github.com/Byaidu/PDFMathTranslate/releases)
+1. Download drpdf-version-win64.zip from [release page](https://github.com/AI-Ahmed/DRPDF/releases)
 
-2. Unzip and double-click `pdf2zh.exe` to run.
+2. Unzip and double-click `drpdf.exe` to run.
 
 </details>
 
@@ -120,13 +101,13 @@ For different use cases, we provide distinct methods to use our program:
 2. Install our package:
 
 ```bash
-pip install pdf2zh
+pip install drpdf
 ```
 
 3. Start using in browser:
 
    ```bash
-   pdf2zh -i
+   drpdf -i
    ```
 
 4. If your browswer has not been started automatically, goto
@@ -147,8 +128,8 @@ See [documentation for GUI](./docs/README_GUI.md) for more details.
 1. Pull and run:
 
    ```bash
-   docker pull byaidu/pdf2zh
-   docker run -d -p 7860:7860 byaidu/pdf2zh
+   docker pull byaidu/drpdf
+   docker run -d -p 7860:7860 byaidu/drpdf
    ```
 
 2. Open in browser:
@@ -189,13 +170,13 @@ See [Zotero PDF2zh](https://github.com/guaguastandup/zotero-pdf2zh) for more det
 2. Install our package:
 
    ```bash
-   pip install pdf2zh
+   pip install drpdf
    ```
 
 3. Execute translation, files generated in [current working directory](https://chatgpt.com/share/6745ed36-9acc-800e-8a90-59204bd13444):
 
    ```bash
-   pdf2zh document.pdf
+   drpdf document.pdf
    ```
 
 </details>
@@ -204,10 +185,10 @@ See [Zotero PDF2zh](https://github.com/guaguastandup/zotero-pdf2zh) for more det
 >
 > - If you're using Windows and cannot open the file after downloading, please install [vc_redist.x64.exe](https://aka.ms/vs/17/release/vc_redist.x64.exe) and try again.
 >
-> - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/Byaidu/PDFMathTranslate/pkgs/container/pdfmathtranslate).
+> - If you cannot access Docker Hub, please try the image on [GitHub Container Registry](https://github.com/AI-Ahmed/DRPDF/pkgs/container/drpdf).
 > ```bash
-> docker pull ghcr.io/byaidu/pdfmathtranslate
-> docker run -d -p 7860:7860 ghcr.io/byaidu/pdfmathtranslate
+> docker pull ghcr.io/ai-ahmed/drpdf
+> docker run -d -p 7860:7860 ghcr.io/ai-ahmed/drpdf
 > ```
 
 ### Unable to install?
@@ -228,7 +209,7 @@ If the solution does not work to you / you encountered other issues, please refe
 
 <h2 id="usage">Advanced Options</h2>
 
-Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#services).
+Execute the translation command in the command line to generate the translated document `example-mono.pdf` and the bilingual document `example-dual.pdf` in the current working directory. Use Google as the default translation service. More support translation services can find [HERE](https://github.com/AI-Ahmed/DRPDF/blob/main/docs/ADVANCED.md#services).
 
 <img src="./docs/images/cmd.explained.png" width="580px"  alt="cmd"/>
 
@@ -310,18 +291,18 @@ For downstream applications, please refer to our document about [API Details](./
 
 <h2 id="contrib">Contributors</h2>
 
-<a href="https://github.com/Byaidu/PDFMathTranslate/graphs/contributors">
-  <img src="https://opencollective.com/PDFMathTranslate/contributors.svg?width=890&button=false" />
+<a href="https://github.com/AI-Ahmed/DRPDF/graphs/contributors">
+  <img src="https://opencollective.com/DRPDF/contributors.svg?width=890&button=false" />
 </a>
 
 ![Alt](https://repobeats.axiom.co/api/embed/dfa7583da5332a11468d686fbd29b92320a6a869.svg "Repobeats analytics image")
 
 <h2 id="star_hist">Star History</h2>
 
-<a href="https://star-history.com/#Byaidu/PDFMathTranslate&Date">
+<a href="https://star-history.com/#AI-Ahmed/DRPDF&Date">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Byaidu/PDFMathTranslate&type=Date&theme=dark" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Byaidu/PDFMathTranslate&type=Date" />
-   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Byaidu/PDFMathTranslate&type=Date"/>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=AI-Ahmed/DRPDF&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=AI-Ahmed/DRPDF&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=AI-Ahmed/DRPDF&type=Date"/>
  </picture>
 </a>

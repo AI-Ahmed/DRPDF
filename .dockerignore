@@ -3,8 +3,8 @@ docs
 .git
 .pre-commit-config.yaml
 uv.lock
-pdf2zh_files
-gui/pdf2zh_files
+drpdf_files
+gui/drpdf_files
 gradio_files
 tmp
 gui/gradio_files
@@ -173,3 +173,4 @@ cython_debug/
 .idea/
 .vscode
 .DS_Store
+pyproject.toml.adj

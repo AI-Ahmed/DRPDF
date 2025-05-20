@@ -22,13 +22,13 @@
 - Entire document
 
   ```bash
-  pdf2zh example.pdf
+  drpdf example.pdf
   ```
 
 - Part of the document
 
   ```bash
-  pdf2zh example.pdf -p 1-3,5
+  drpdf example.pdf -p 1-3,5
   ```
 
 [⬆️ Back to top](#toc)
@@ -40,7 +40,7 @@
 See [Google Languages Codes](https://developers.google.com/admin-sdk/directory/v1/languages), [DeepL Languages Codes](https://developers.deepl.com/docs/resources/supported-languages)
 
 ```bash
-pdf2zh example.pdf -li en -lo ja
+drpdf example.pdf -li en -lo ja
 ```
 
 [⬆️ Back to top](#toc)
@@ -81,21 +81,28 @@ For large language models that are compatible with the OpenAI API but not listed
 Use `-s service` or `-s service:model` to specify service:
 
 ```bash
-pdf2zh example.pdf -s openai:gpt-4o-mini
+drpdf example.pdf -s openai:gpt-4o-mini
 ```
 
 Or specify model with environment variables:
 
 ```bash
 set OPENAI_MODEL=gpt-4o-mini
-pdf2zh example.pdf -s openai
+drpdf example.pdf -s openai
 ```
 
 For PowerShell user:
 
 ```shell
 $env:OPENAI_MODEL = gpt-4o-mini
-pdf2zh example.pdf -s openai
+drpdf example.pdf -s openai
+```
+
+For bash user:
+
+```bash
+export OPENAI_MODEL=gpt-4o-mini
+drpdf example.pdf -s openai
 ```
 
 [⬆️ Back to top](#toc)
@@ -107,13 +114,13 @@ pdf2zh example.pdf -s openai
 Use regex to specify formula fonts and characters that need to be preserved:
 
 ```bash
-pdf2zh example.pdf -f "(CM[^RT].*|MS.*|.*Ital)" -c "(\(|\||\)|\+|=|\d|[\u0080-\ufaff])"
+drpdf example.pdf -f "(CM[^RT].*|MS.*|.*Ital)" -c "(\(|\||\)|\+|=|\d|[\u0080-\ufaff])"
 ```
 
 Preserve `Latex`, `Mono`, `Code`, `Italic`, `Symbol` and `Math` fonts by default:
 
 ```bash
-pdf2zh example.pdf -f "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|RS|LINE|LCIRCLE|TeX-|rsfs|txsy|wasy|stmary|.*Mono|.*Code|.*Ital|.*Sym|.*Math)"
+drpdf example.pdf -f "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|RS|LINE|LCIRCLE|TeX-|rsfs|txsy|wasy|stmary|.*Mono|.*Code|.*Ital|.*Sym|.*Math)"
 ```
 
 [⬆️ Back to top](#toc)
@@ -125,7 +132,7 @@ pdf2zh example.pdf -f "(CM[^R]|MS.M|XY|MT|BL|RM|EU|LA|RS|LINE|LCIRCLE|TeX-|rsfs|
 Use `-t` to specify how many threads to use in translation:
 
 ```bash
-pdf2zh example.pdf -t 1
+drpdf example.pdf -t 1
 ```
 
 [⬆️ Back to top](#toc)
@@ -139,7 +146,7 @@ Note: System prompt is currently not supported. See [this change](https://github
 Use `--prompt` to specify which prompt to use in llm:
 
 ```bash
-pdf2zh example.pdf --prompt prompt.txt
+drpdf example.pdf --prompt prompt.txt
 ```
 
 For example:
@@ -171,7 +178,7 @@ In custom prompt file, there are three variables can be used.
 Use `--authorized` to specify which user to use Web UI and custom the login page:
 
 ```bash
-pdf2zh example.pdf --authorized users.txt auth.html
+drpdf example.pdf --authorized users.txt auth.html
 ```
 
 example users.txt
@@ -209,11 +216,11 @@ example auth.html
 Use `--config` to specify which file to configure the PDFMathTranslate:
 
 ```bash
-pdf2zh example.pdf --config config.json
+drpdf example.pdf --config config.json
 ```
 
 ```bash
-pdf2zh -i --config config.json
+drpdf -i --config config.json
 ```
 
 example config.json
@@ -221,8 +228,8 @@ example config.json
 ```json
 {
     "USE_MODELSCOPE": "0",
-    "PDF2ZH_LANG_FROM": "English",
-    "PDF2ZH_LANG_TO": "Simplified Chinese",
+    "DRPDF_LANG_FROM": "English",
+    "DRPDF_LANG_TO": "Simplified Chinese",
     "NOTO_FONT_PATH": "/app/SourceHanSerifCN-Regular.ttf",
     "translators": [
         {
@@ -254,7 +261,7 @@ By default, the config file is saved in the `~/.config/PDFMathTranslate/config.j
 By default, PDFMathTranslate uses fonts subsetting to decrease sizes of output files. You can use `--skip-subset-fonts` option to disable fonts subsetting when encoutering compatibility issues.
 
 ```bash
-pdf2zh example.pdf --skip-subset-fonts
+drpdf example.pdf --skip-subset-fonts
 ```
 
 [⬆️ Back to top](#toc)
@@ -266,7 +273,7 @@ pdf2zh example.pdf --skip-subset-fonts
 PDFMathTranslate caches translated texts to increase speed and avoid unnecessary API calls for same contents. You can use `--ignore-cache` option to ignore translation cache and force retranslation.
 
 ```bash
-pdf2zh example.pdf --ignore-cache
+drpdf example.pdf --ignore-cache
 ```
 
 [⬆️ Back to top](#toc)
@@ -309,8 +316,8 @@ A usable configuration is as follows:
         "Grok"
     ],
     "HIDDEN_GRADIO_DETAILS": true,
-    "PDF2ZH_LANG_FROM": "English",
-    "PDF2ZH_LANG_TO": "Simplified Chinese",
+    "DRPDF_LANG_FROM": "English",
+    "DRPDF_LANG_TO": "Simplified Chinese",
     "NOTO_FONT_PATH": "/app/SourceHanSerifCN-Regular.ttf"
 }
 ```

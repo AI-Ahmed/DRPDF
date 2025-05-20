@@ -1,5 +1,5 @@
 import unittest
-from pdf2zh import cache
+from drpdf import cache
 import threading
 import multiprocessing
 import random
@@ -174,10 +174,12 @@ class TestCache(unittest.TestCase):
     #         )
 
     #     def worker():
-    #         thread_results = []  # 线程本地存储结果
+    #         # Thread-local storage for results
+    #         thread_results = []
     #         for _ in range(items_per_thread):
     #             text = generate_random_text()
-    #             translation = f"翻译_{text}"
+    #             # Translation result
+    #             translation = f"translation_{text}"
 
     #             # Write operation
     #             cache_instance.set(text, translation)
@@ -186,7 +188,7 @@ class TestCache(unittest.TestCase):
     #             result = cache_instance.get(text)
     #             thread_results.append((text, result))
 
-    #         # 所有操作完成后，一次性加锁并追加结果
+    #         # Lock and append results after all operations are complete
     #         with lock:
     #             results.extend(thread_results)
 
@@ -207,7 +209,7 @@ class TestCache(unittest.TestCase):
 
     #     # Verify each thread got its correct value
     #     for text, result in results:
-    #         expected = f"翻译_{text}"
+    #         expected = f"translation_{text}"
     #         self.assertEqual(result, expected)
 
 

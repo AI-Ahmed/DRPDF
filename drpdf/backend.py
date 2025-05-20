@@ -1,14 +1,14 @@
 from flask import Flask, request, send_file
 from celery import Celery, Task
 from celery.result import AsyncResult
-from pdf2zh import translate_stream
+from drpdf import translate_stream
 import tqdm
 import json
 import io
-from pdf2zh.doclayout import ModelInstance
-from pdf2zh.config import ConfigManager
+from drpdf.doclayout import ModelInstance
+from drpdf.config import ConfigManager
 
-flask_app = Flask("pdf2zh")
+flask_app = Flask("drpdf")
 flask_app.config.from_mapping(
     CELERY=dict(
         broker_url=ConfigManager.get("CELERY_BROKER", "redis://127.0.0.1:6379/0"),

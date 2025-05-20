@@ -4,9 +4,9 @@ from unittest import mock
 
 from ollama import ResponseError as OllamaResponseError
 
-from pdf2zh import cache
-from pdf2zh.config import ConfigManager
-from pdf2zh.translator import BaseTranslator, OllamaTranslator, OpenAIlikedTranslator
+from drpdf import cache
+from drpdf.config import ConfigManager
+from drpdf.translator import BaseTranslator, OllamaTranslator, OpenAIlikedTranslator
 
 # Since it is necessary to test whether the functionality meets the expected requirements,
 # private functions and private methods are allowed to be called.
@@ -91,8 +91,8 @@ class TestOpenAIlikedTranslator(unittest.TestCase):
             "OPENAILIKED_MODEL": "test_model",
         }
 
-    def test_missing_base_url_raises_error(self):
-        """测试缺失 OPENAILIKED_BASE_URL 时抛出异常"""
+    def test_missing_base_url(self):
+        """Test that an exception is thrown when OPENAILIKED_BASE_URL is missing"""
         ConfigManager.clear()
         with self.assertRaises(ValueError) as context:
             OpenAIlikedTranslator(
@@ -100,8 +100,8 @@ class TestOpenAIlikedTranslator(unittest.TestCase):
             )
         self.assertIn("The OPENAILIKED_BASE_URL is missing.", str(context.exception))
 
-    def test_missing_model_raises_error(self):
-        """测试缺失 OPENAILIKED_MODEL 时抛出异常"""
+    def test_missing_model(self):
+        """Test that an exception is thrown when OPENAILIKED_MODEL is missing"""
         envs_without_model = {
             "OPENAILIKED_BASE_URL": "https://api.openailiked.com",
             "OPENAILIKED_API_KEY": "test_api_key",
@@ -113,8 +113,8 @@ class TestOpenAIlikedTranslator(unittest.TestCase):
             )
         self.assertIn("The OPENAILIKED_MODEL is missing.", str(context.exception))
 
-    def test_initialization_with_valid_envs(self):
-        """测试使用有效的环境变量初始化"""
+    def test_valid_env_vars(self):
+        """Test initialization with valid environment variables"""
         ConfigManager.clear()
         translator = OpenAIlikedTranslator(
             lang_in="en",

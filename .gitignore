@@ -1,5 +1,7 @@
 pdf2zh_files
 gui/pdf2zh_files
+drpdf_files
+gui/drpdf_files
 gradio_files
 tmp
 gui/gradio_files
@@ -135,7 +137,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
-pdf2zh-dev/
+drpdf-dev/
 
 # Spyder project settings
 .spyderproject
@@ -172,3 +174,6 @@ cython_debug/
 uv.lock
 *.pdf
 *.docx
+
+pyproject.toml.adj
+.command

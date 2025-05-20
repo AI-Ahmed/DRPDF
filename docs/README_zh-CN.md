@@ -2,18 +2,18 @@
 
 [English](../README.md) | 简体中文 | [繁體中文](README_zh-TW.md) | [日本語](README_ja-JP.md)
 
-<img src="./images/banner.png" width="320px"  alt="PDF2ZH"/>  
+<img src="./images/banner.png" width="320px"  alt="DRPDF"/>  
 
-<h2 id="title">PDFMathTranslate</h2>
+<h2 id="title">DRPDF</h2>
 
 <p>
   <!-- PyPI -->
-  <a href="https://pypi.org/project/pdf2zh/">
-    <img src="https://img.shields.io/pypi/v/pdf2zh"/></a>
-  <a href="https://pepy.tech/projects/pdf2zh">
-    <img src="https://static.pepy.tech/badge/pdf2zh"></a>
-  <a href="https://hub.docker.com/repository/docker/byaidu/pdf2zh">
-    <img src="https://img.shields.io/docker/pulls/byaidu/pdf2zh"></a>
+  <a href="https://pypi.org/project/drpdf/">
+    <img src="https://img.shields.io/pypi/v/drpdf"/></a>
+  <a href="https://pepy.tech/projects/drpdf">
+    <img src="https://static.pepy.tech/badge/drpdf"></a>
+  <a href="https://hub.docker.com/repository/docker/byaidu/drpdf">
+    <img src="https://img.shields.io/docker/pulls/byaidu/drpdf"></a>
   <!-- License -->
   <a href="./LICENSE">
     <img src="https://img.shields.io/github/license/Byaidu/PDFMathTranslate"/></a>
@@ -62,7 +62,7 @@
 
 您可以通过以下演示尝试我们的应用程序：
 
-- [公共免费服务](https://pdf2zh.com/) 在线使用，无需安装 _(推荐)_。
+- [公共免费服务](https://drpdf.com/) 在线使用，无需安装 _(推荐)_。
 - [沉浸式翻译 - BabelDOC](https://app.immersivetranslate.com/babel-doc/) 每月免费 1000 页 _(推荐)_
 - [在 HuggingFace 上托管的演示](https://huggingface.co/spaces/reycn/PDFMathTranslate-Docker)
 - [在 ModelScope 上托管的演示](https://www.modelscope.cn/studios/AI-ModelScope/PDFMathTranslate) 无需安装。
@@ -82,13 +82,13 @@
 
    ```bash
    pip install uv
-   uv tool install --python 3.12 pdf2zh
+   uv tool install --python 3.12 drpdf
    ```
 
 3. 执行翻译，文件生成在 [当前工作目录](https://chatgpt.com/share/6745ed36-9acc-800e-8a90-59204bd13444)：
 
    ```bash
-   pdf2zh document.pdf
+   drpdf document.pdf
    ```
 
 </details>
@@ -96,9 +96,9 @@
 <details>
   <summary>2. Windows exe</summary>
 
-1. 从 [发布页面](https://github.com/Byaidu/PDFMathTranslate/releases) 下载 pdf2zh-version-win64.zip
+1. 从 [发布页面](https://github.com/AI-Ahmed/DRPDF/releases) 下载 drpdf-version-win64.zip
 
-2. 解压缩并双击 `pdf2zh.exe` 运行。
+2. 解压缩并双击 `drpdf.exe` 运行。
 
 </details>
 
@@ -108,13 +108,13 @@
 2. 安装我们的包：
 
 ```bash
-pip install pdf2zh
+pip install drpdf
 ```
 
 3. 在浏览器中开始使用：
 
    ```bash
-   pdf2zh -i
+   drpdf -i
    ```
 
 4. 如果您的浏览器没有自动启动，请访问
@@ -135,8 +135,8 @@ pip install pdf2zh
 1. 拉取并运行：
 
    ```bash
-   docker pull byaidu/pdf2zh
-   docker run -d -p 7860:7860 byaidu/pdf2zh
+   docker pull byaidu/drpdf
+   docker run -d -p 7860:7860 byaidu/drpdf
    ```
 
 2. 在浏览器中打开：
@@ -176,13 +176,13 @@ pip install pdf2zh
 2. 安装我们的包：
 
    ```bash
-   pip install pdf2zh
+   pip install drpdf
    ```
 
 3. 执行翻译，文件生成在 [当前工作目录](https://chatgpt.com/share/6745ed36-9acc-800e-8a90-59204bd13444):
 
    ```bash
-   pdf2zh document.pdf
+   drpdf document.pdf
    ```
 
 </details>
@@ -224,26 +224,26 @@ $env:HF_ENDPOINT = https://hf-mirror.com
 
 | 选项         | 功能                                                                                                          | 示例                                           |
 | ------------ | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| files        | 本地文件                                                                                                     | `pdf2zh ~/local.pdf`                           |
-| links        | 在线文件                                                                                                     | `pdf2zh http://arxiv.org/paper.pdf`            |
-| `-i`         | [进入 GUI](#gui)                                                                                            | `pdf2zh -i`                                    |
-| `-p`         | [部分文档翻译](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#partial)                | `pdf2zh example.pdf -p 1`                      |
-| `-li`        | [源语言](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages)                    | `pdf2zh example.pdf -li en`                    |
-| `-lo`        | [目标语言](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages)                  | `pdf2zh example.pdf -lo zh`                    |
-| `-s`         | [翻译服务](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#services)                   | `pdf2zh example.pdf -s deepl`                  |
-| `-t`         | [多线程](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#threads)                      | `pdf2zh example.pdf -t 1`                      |
-| `-o`         | 输出目录                                                                                                     | `pdf2zh example.pdf -o output`                 |
-| `-f`, `-c`   | [异常](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#exceptions)                     | `pdf2zh example.pdf -f "(MS.*)"`               |
-| `-cp`        | 兼容模式                                                                                                     | `pdf2zh example.pdf --compatible`              |
-| `--share`    | 公开链接                                                                                                     | `pdf2zh -i --share`                            |
-| `--authorized` | [授权](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#auth)                         | `pdf2zh -i --authorized users.txt [auth.html]` |
-| `--prompt`   | [自定义提示](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#prompt)                   | `pdf2zh --prompt [prompt.txt]`                 |
-| `--onnx`     | [使用自定义 DocLayout-YOLO ONNX 模型]                                                                        | `pdf2zh --onnx [onnx/model/path]`              |
-| `--serverport` | [使用自定义 WebUI 端口]                                                                                    | `pdf2zh --serverport 7860`                     |
-| `--dir`      | [批量翻译]                                                                                                   | `pdf2zh --dir /path/to/translate/`             |
-| `--config`   | [配置文件](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cofig)                       | `pdf2zh --config /path/to/config/config.json`  |
-| `--serverport` | [自定义 gradio 服务器端口]                                                                                 | `pdf2zh --serverport 7860`                     |
-| `--babeldoc`| 使用实验性后端 [BabelDOC](https://funstory-ai.github.io/BabelDOC/) 翻译 |`pdf2zh --babeldoc` -s openai example.pdf|
+| files        | 本地文件                                                                                                     | `drpdf ~/local.pdf`                           |
+| links        | 在线文件                                                                                                     | `drpdf http://arxiv.org/paper.pdf`            |
+| `-i`         | [进入 GUI](#gui)                                                                                            | `drpdf -i`                                    |
+| `-p`         | [部分文档翻译](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#partial)                | `drpdf example.pdf -p 1`                      |
+| `-li`        | [源语言](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages)                    | `drpdf example.pdf -li en`                    |
+| `-lo`        | [目标语言](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages)                  | `drpdf example.pdf -lo zh`                    |
+| `-s`         | [翻译服务](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#services)                   | `drpdf example.pdf -s deepl`                  |
+| `-t`         | [多线程](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#threads)                      | `drpdf example.pdf -t 1`                      |
+| `-o`         | 输出目录                                                                                                     | `drpdf example.pdf -o output`                 |
+| `-f`, `-c`   | [异常](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#exceptions)                     | `drpdf example.pdf -f "(MS.*)"`               |
+| `-cp`        | 兼容模式                                                                                                     | `drpdf example.pdf --compatible`              |
+| `--share`    | 公开链接                                                                                                     | `drpdf -i --share`                            |
+| `--authorized` | [授权](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#auth)                         | `drpdf -i --authorized users.txt [auth.html]` |
+| `--prompt`   | [自定义提示](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#prompt)                   | `drpdf --prompt [prompt.txt]`                 |
+| `--onnx`     | [使用自定义 DocLayout-YOLO ONNX 模型]                                                                        | `drpdf --onnx [onnx/model/path]`              |
+| `--serverport` | [使用自定义 WebUI 端口]                                                                                    | `drpdf --serverport 7860`                     |
+| `--dir`      | [批量翻译]                                                                                                   | `drpdf --dir /path/to/translate/`             |
+| `--config`   | [配置文件](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cofig)                       | `drpdf --config /path/to/config/config.json`  |
+| `--serverport` | [自定义 gradio 服务器端口]                                                                                 | `drpdf --serverport 7860`                     |
+| `--babeldoc`| 使用实验性后端 [BabelDOC](https://funstory-ai.github.io/BabelDOC/) 翻译 |`drpdf --babeldoc` -s openai example.pdf|
 
 有关详细说明，请参阅我们的文档 [高级用法](./ADVANCED.md)，以获取每个选项的完整列表。
 

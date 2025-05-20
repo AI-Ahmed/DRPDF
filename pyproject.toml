@@ -1,8 +1,8 @@
 [project]
-name = "pdf2zh"
-version = "1.9.9"
-description = "Latex PDF Translator"
-authors = [{ name = "Byaidu", email = "byaidux@gmail.com" }]
+name = "DRPDF"
+version = "1.9.7"
+description = "A Cloned Repository of PDFMathTranslate made to support RTL languages. DRPDF is a PDF scientific paper translation and bilingual comparison."
+authors = [{ name = "Byaidu", email = "byaidux@gmail.com" }, { name = "Drahmed", email = "drahmed@gmail.com" }]
 license = "AGPL-3.0"
 readme = "README.md"
 requires-python = ">=3.10,<3.13"
@@ -35,6 +35,10 @@ dependencies = [
     "fontTools",
     "babeldoc>=0.1.22, <0.3.0",
     "rich",
+    "arabic-reshaper",
+    "python-bidi",
+    "langdetect",
+    "argostranslategui>=1.6.5",
 ]
 
 [project.optional-dependencies]
@@ -61,23 +65,21 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Byaidu/PDFMathTranslate"
+Homepage = "https://github.com/AI-Ahmed/DRPDF"
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project.scripts]
-pdf2zh = "pdf2zh.pdf2zh:main"
+drpdf = "drpdf.drpdf:main"
 
 [tool.flake8]
 ignore = ["E203", "E261", "E501", "W503", "E741"]
 max-line-length = 88
 
-
-
 [bumpver]
-current_version = "1.9.9"
+current_version = "1.9.7"
 version_pattern = "MAJOR.MINOR.PATCH[.PYTAGNUM]"
 
 [bumpver.file_patterns]
@@ -85,6 +87,6 @@ version_pattern = "MAJOR.MINOR.PATCH[.PYTAGNUM]"
     'current_version = "{version}"',
     'version = "{version}"'
 ]
-"pdf2zh/__init__.py" = [
+"drpdf/__init__.py" = [
     '__version__ = "{version}"'
 ]
