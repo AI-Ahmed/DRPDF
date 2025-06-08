@@ -338,7 +338,7 @@ class OllamaTranslator(BaseTranslator):
             messages=self.prompt(text, self.prompt_template),
             options=self.options,
         )
-        content = self._remove_cot_content(response.message.content or "")
+        content = self._remove_cot_content(response["message"]["content"] or "")
         return content.strip()
 
     @staticmethod
@@ -582,6 +582,7 @@ class ZhipuTranslator(OpenAITranslator):
         self.add_cache_impact_parameters("prompt", self.prompt("", self.prompttext))
 
     def do_translate(self, text) -> str:
+        response = None
         try:
             response = self.client.chat.completions.create(
                 model=self.model,
@@ -589,7 +590,7 @@ class ZhipuTranslator(OpenAITranslator):
                 messages=self.prompt(text, self.prompttext),
             )
         except openai.BadRequestError as e:
-            if (
+            if response and (
                 json.loads(response.choices[0].message.content.strip())["error"]["code"]
                 == "1301"
             ):
@@ -702,7 +703,7 @@ class TencentTranslator(BaseTranslator):
         self, lang_in, lang_out, model, envs=None, ignore_cache=False, **kwargs
     ):
         self.set_envs(envs)
-        super().__init__(lang_in, lang_out, model)
+        super().__init__(lang_in, lang_out, model, ignore_cache)
         try:
             cred = credential.DefaultCredentialProvider().get_credential()
         except EnvironmentError:
@@ -981,6 +982,23 @@ class OpenRouterTranslator(OpenAITranslator):
         "do not include any other text. Keep the formula notation {v*} unchanged. Output translation directly "
         "without any additional text; output TEXT FOMRAT ONLYY\n\nTranslated Text: "
     )
+    
+    def set_envs(self, envs):
+        """Override set_envs to avoid ConfigManager corruption and only use OPENROUTER_* keys"""
+        # Start with a clean copy of our class-level envs
+        self.envs = copy(self.__class__.envs)
+        
+        # Load from OS environment variables (only OPENROUTER_* keys)
+        for key in self.envs:
+            if key in os.environ:
+                self.envs[key] = os.environ[key]
+        
+        # Apply any passed envs (only OPENROUTER_* keys)
+        if envs is not None:
+            for key in envs:
+                if key.startswith("OPENROUTER_"):
+                    self.envs[key] = envs[key]
+    
     def __init__(
         self,
         lang_in: str,
@@ -990,17 +1008,26 @@ class OpenRouterTranslator(OpenAITranslator):
         prompt=None,
         ignore_cache=False,
     ):
+        # Set our environment variables using our custom method to avoid ConfigManager corruption
         self.set_envs(envs)
-        base_url = self.envs["OPENROUTER_BASE_URL"]
-        api_key = self.envs["OPENROUTER_API_KEY"]
+        
+        # Resolve model before calling parent
         if not model:
             model = self.envs["OPENROUTER_MODEL"]
+        
+        # Prepare environment variables for parent class to avoid KeyError
+        parent_envs = {
+            "OPENAI_BASE_URL": self.envs["OPENROUTER_BASE_URL"],
+            "OPENAI_API_KEY": self.envs["OPENROUTER_API_KEY"],
+            "OPENAI_MODEL": model,  # Set this to prevent KeyError in parent
+        }
         super().__init__(
             lang_in,
             lang_out,
             model,
-            base_url=base_url,
-            api_key=api_key,
+            base_url=self.envs["OPENROUTER_BASE_URL"],
+            api_key=self.envs["OPENROUTER_API_KEY"],
+            envs=parent_envs,  # Pass compatible envs to parent
             ignore_cache=ignore_cache,
         )
         self.prompttext = prompt if prompt is not None else self.built_in_prompt

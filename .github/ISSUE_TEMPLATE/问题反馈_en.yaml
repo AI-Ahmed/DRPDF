@@ -1,5 +1,5 @@
 name: Bug Report
-description: File a bug report
+description: Create a report to help us improve
 title: "[Bug]: "
 labels: ["bug"]
 body:
@@ -8,49 +8,33 @@ body:
       value: |
         Thanks for taking the time to fill out this bug report!
   - type: textarea
-    id: what-happened
+    id: environment
     attributes:
-<<<<<<< Updated upstream
-      label: Environment
+      label: Environment Used
+      description: What version of our software are you running?
       placeholder: |
-          - **OS**: Ubuntu 24.10
-          - **Python**: 3.12.0
-          - **pdf2zh**: 1.9.0
+        - **drpdf**: 2.0.0
+        - **Python**: 3.10.0
+        - **OS**: Windows 10
+      value: |
+        - OS:
+        - Python:
+        - drpdf:
       render: markdown
     validations:
-      required: false
-  - type: dropdown
-    id: install
+      required: true
+  - type: textarea
+    id: what-happened
     attributes:
-      label: How to install pdf2zh
-      options:
-        - pip
-        - exe
-        - source
-        - docker
-=======
       label: What happened?
       description: Also tell us, what did you expect to happen?
       placeholder: Tell us what you see!
       value: "A bug happened!"
->>>>>>> Stashed changes
-    validations:
-      required: true
-  - type: textarea
-    id: version-info
-    attributes:
-      label: Version
-      description: What version of our software are you running?
-      placeholder: |
-        - **drpdf**: 1.9.7
-        - **Python**: 3.10.0
-        - **OS**: Windows 10
-        - drpdf:
     validations:
       required: true
   - type: textarea
     id: logs
     attributes:
-      label: How to install drpdf
+      label: Relevant log output
       description: Please copy and paste any relevant log output. This will be automatically formatted into code, so no need for backticks.
       render: shell

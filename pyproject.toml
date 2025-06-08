@@ -1,6 +1,6 @@
 [project]
 name = "DRPDF"
-version = "1.9.7"
+version = "2.0.0"
 description = "A Cloned Repository of PDFMathTranslate made to support RTL languages. DRPDF is a PDF scientific paper translation and bilingual comparison."
 authors = [{ name = "Byaidu", email = "byaidux@gmail.com" }, { name = "Drahmed", email = "drahmed@gmail.com" }]
 license = "AGPL-3.0"
@@ -16,7 +16,7 @@ dependencies = [
     "pymupdf<1.25.3",
     "tqdm",
     "tenacity",
-    "numpy",
+    "numpy==1.26.4",
     "ollama",
     "xinference-client",
     "deepl",
@@ -79,7 +79,7 @@ ignore = ["E203", "E261", "E501", "W503", "E741"]
 max-line-length = 88
 
 [bumpver]
-current_version = "1.9.7"
+current_version = "2.0.0"
 version_pattern = "MAJOR.MINOR.PATCH[.PYTAGNUM]"
 
 [bumpver.file_patterns]
