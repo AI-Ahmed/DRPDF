@@ -15,14 +15,151 @@ A Cloned Repository of PDFMathTranslate made to support RTL languages. DRPDF is 
 
 <a href="https://trendshift.io/repositories/12424" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12424" alt="AI-Ahmed%2FDRPDF | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a>
 
-</div>
+## Key Features
 
-PDF scientific paper translation and bilingual comparison.
+- 📊 **Layout Preservation**: Maintains formulas, charts, tables, and annotations in their original format
+- 🌐 **Multi-Language Support**: Handles RTL languages and various translation services
+- 🤖 **Multiple Interfaces**: CLI tool, GUI, Docker, and API access
+- 🔄 **Smart Caching**: Efficient translation caching to speed up repeated operations
+- 📑 **Document Analysis**: Advanced layout parsing with DocLayout-YOLO
+- 🎯 **Customization**: Configurable translation services, prompts, and fonts
+
+## Quick Start
+
+### Installation
+
+```bash
+# Using UV (Recommended)
+pip install uv
+uv tool install --python 3.12 drpdf
+
+# Using pip
+pip install drpdf
+```
+
+### Basic Usage
+
+```bash
+# Translate a single PDF
+drpdf document.pdf
+
+# Use specific language pair
+drpdf document.pdf -li en -lo ar
+
+# Use GUI interface
+drpdf -i
+
+# Batch translate directory
+drpdf --dir /path/to/pdfs/
+```
+
+### Docker Usage
+
+```bash
+# Pull and run
+docker pull byaidu/drpdf
+docker run -d -p 7860:7860 byaidu/drpdf
+
+# Access web interface
+open http://localhost:7860
+```
+
+## Advanced Features
+
+### Translation Services
+
+DRPDF supports multiple translation services:
+
+```bash
+# Using OpenAI
+drpdf document.pdf -s openai
+
+# Using DeepL
+drpdf document.pdf -s deepl
+
+# Using Google Translate
+drpdf document.pdf -s google
+```
+
+### Language Support
+
+```bash
+# English to Arabic (RTL)
+drpdf document.pdf -li en -lo ar
+
+# English to Chinese
+drpdf document.pdf -li en -lo zh
+
+# Custom language pairs
+drpdf document.pdf -li [source] -lo [target]
+```
+
+### Layout Options
+
+```bash
+# Skip font subsetting
+drpdf document.pdf --skip-subset-fonts
+
+# Use compatibility mode
+drpdf document.pdf -cp
+
+# Custom ONNX model
+drpdf document.pdf --onnx path/to/model
+```
+
+## Python API
+
+```python
+from drpdf import translate
+
+# Basic translation
+translate(
+    files=["document.pdf"],
+    lang_in="en",
+    lang_out="zh",
+    service="google"
+)
+
+# Advanced options
+translate(
+    files=["document.pdf"],
+    output="output_dir",
+    pages=[1,2,3],  # Specific pages
+    lang_in="en",
+    lang_out="ar",
+    service="openai",
+    thread=4,  # Multi-threading
+    compatible=True,  # Compatibility mode
+    skip_subset_fonts=True,
+    ignore_cache=False
+)
+```
+
+## Configuration
+
+Create a `config.json` for persistent settings:
+
+```json
+{
+    "lang_in": "en",
+    "lang_out": "zh",
+    "service": "google",
+    "thread": 4,
+    "compatible": true,
+    "skip_subset_fonts": false
+}
+```
+
+Use with:
+```bash
+drpdf --config path/to/config.json document.pdf
+```
 
 - 📊 Preserve formulas, charts, table of contents, and annotations _([preview](#preview))_.
 - 🌐 Support [multiple languages](#language) including RTL languages, and diverse [translation services](#services).
 - 🤖 Provides [commandline tool](#usage), [interactive user interface](#gui), and [Docker](#docker)
 
+This project is licensed under the AGPL-3.0 License - see the [LICENSE](LICENSE) file for details.
 
 <h2 id="updates">Updates</h2>
 
@@ -215,32 +352,31 @@ Execute the translation command in the command line to generate the translated d
 
 In the following table, we list all advanced options for reference:
 
-| Option                | Function                                                                                                      | Example                                        |
-| --------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------- |
-| files                 | Local files                                                                                                   | `pdf2zh ~/local.pdf`                           |
-| links                 | Online files                                                                                                  | `pdf2zh http://arxiv.org/paper.pdf`            |
-| `-i`                  | [Enter GUI](#gui)                                                                                             | `pdf2zh -i`                                    |
-| `-p`                  | [Partial document translation](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#partial) | `pdf2zh example.pdf -p 1`                      |
-| `-li`                 | [Source language](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages)            | `pdf2zh example.pdf -li en`                    |
-| `-lo`                 | [Target language](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages)            | `pdf2zh example.pdf -lo zh`                    |
-| `-s`                  | [Translation service](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#services)         | `pdf2zh example.pdf -s deepl`                  |
-| `-t`                  | [Multi-threads](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#threads)                | `pdf2zh example.pdf -t 1`                      |
-| `-o`                  | Output dir                                                                                                    | `pdf2zh example.pdf -o output`                 |
-| `-f`, `-c`            | [Exceptions](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#exceptions)                | `pdf2zh example.pdf -f "(MS.*)"`               |
-| `-cp`                 | Compatibility Mode                                                                                            | `pdf2zh example.pdf --compatible`              |
-| `--skip-subset-fonts` | [Skip font subset](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#font-subset)         | `pdf2zh example.pdf --skip-subset-fonts`       |
-| `--ignore-cache`      | [Ignore translate cache](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cache)         | `pdf2zh example.pdf --ignore-cache`            |
-| `--share`             | Public link                                                                                                   | `pdf2zh -i --share`                            |
-| `--authorized`        | [Authorization](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#auth)                   | `pdf2zh -i --authorized users.txt [auth.html]` |
-| `--prompt`            | [Custom Prompt](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#prompt)                 | `pdf2zh --prompt [prompt.txt]`                 |
-| `--onnx`              | [Use Custom DocLayout-YOLO ONNX model]                                                                        | `pdf2zh --onnx [onnx/model/path]`              |
-| `--serverport`        | [Use Custom WebUI port]                                                                                       | `pdf2zh --serverport 7860`                     |
-| `--dir`               | [batch translate]                                                                                             | `pdf2zh --dir /path/to/translate/`             |
-| `--config`            | [configuration file](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cofig)             | `pdf2zh --config /path/to/config/config.json`  |
-| `--serverport`        | [custom gradio server port]                                                                                   | `pdf2zh --serverport 7860`                     |
-| `--babeldoc`          | Use Experimental backend [BabelDOC](https://funstory-ai.github.io/BabelDOC/) to translate                     | `pdf2zh --babeldoc` -s openai example.pdf      |
-| `--mcp`               | Enable MCP STDIO mode                                                                                         | `pdf2zh --mcp`                                 |
-| `--sse`               | Enable MCP SSE mode                                                                                           | `pdf2zh --mcp --sse`                           |
+| Option | Function | Example |
+|--------|----------|---------|
+| `files` | Local files | `drpdf ~/local.pdf` |
+| `links` | Online files | `drpdf http://arxiv.org/paper.pdf` |
+| `-i` | [Enter GUI](#gui) | `drpdf -i` |
+| `-p` | [Partial document translation](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#partial) | `drpdf example.pdf -p 1` |
+| `-li` | [Source language](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages) | `drpdf example.pdf -li en` |
+| `-lo` | [Target language](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#languages) | `drpdf example.pdf -lo zh` |
+| `-s` | [Translation service](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#services) | `drpdf example.pdf -s deepl` |
+| `-t` | [Multi-threads](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#threads) | `drpdf example.pdf -t 1` |
+| `-o` | Output dir | `drpdf example.pdf -o output` |
+| `-f`, `-c` | [Exceptions](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#exceptions) | `drpdf example.pdf -f "(MS.*)"` |
+| `-cp` | Compatibility Mode | `drpdf example.pdf --compatible` |
+| `--skip-subset-fonts` | [Skip font subset](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#font-subset) | `drpdf example.pdf --skip-subset-fonts` |
+| `--ignore-cache` | [Ignore translate cache](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cache) | `drpdf example.pdf --ignore-cache` |
+| `--share` | Public link | `drpdf -i --share` |
+| `--authorized` | [Authorization](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#auth) | `drpdf -i --authorized users.txt [auth.html]` |
+| `--prompt` | [Custom Prompt](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#prompt) | `drpdf --prompt [prompt.txt]` |
+| `--onnx` | Use Custom DocLayout-YOLO ONNX model | `drpdf --onnx [onnx/model/path]` |
+| `--serverport` | Use Custom WebUI port | `drpdf --serverport 7860` |
+| `--dir` | Batch translate | `drpdf --dir /path/to/translate/` |
+| `--config` | [Configuration file](https://github.com/Byaidu/PDFMathTranslate/blob/main/docs/ADVANCED.md#cofig) | `drpdf --config /path/to/config/config.json` |
+| `--babeldoc` | Use Experimental backend [BabelDOC](https://funstory-ai.github.io/BabelDOC/) | `drpdf --babeldoc -s openai example.pdf` |
+| `--mcp` | Enable MCP STDIO mode | `drpdf --mcp` |
+| `--sse` | Enable MCP SSE mode | `drpdf --mcp --sse` |
 
 For detailed explanations, please refer to our document about [Advanced Usage](./docs/ADVANCED.md) for a full list of each option.
 
